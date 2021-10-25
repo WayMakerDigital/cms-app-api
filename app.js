@@ -40,6 +40,23 @@ app.get('/blog/:blogid', async (req, res) => {
   res.json({singlepost});
 })
 
+app.patch('/blog/:blogid', async (req, res) => {
+  const blogid = req.params.blogid;
+  const updatedPost = await Blogs.update({
+    title: req.body.title,
+    summary: req.body.summary,
+    content: req.body.content,
+  }, {
+    where: {id: blogid}
+  });
+  res.json({message: 'Update successful'});
+})
+
+app.delete('/blog/:blogid', async (req, res) => {
+  const blogid = req.params.blogid;
+  await Blogs.destroy({where: {id: blogid}});
+  res.json({message: 'Delete successful'});
+})
 
 app.listen(8000, err => {
   if(err) console.error(err);
