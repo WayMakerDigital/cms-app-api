@@ -16,6 +16,7 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.post('/create', async (req, res) => {
+  // console.log(req.body);
   const post = await Blogs.create({
     author: req.body.author,
     title: req.body.title,
@@ -23,6 +24,20 @@ app.post('/create', async (req, res) => {
     content: req.body.content,
     date: Date.now(),
   })
+  res.json(post);
+})
+
+app.get('/test', async (req, res) => {
+  const info = await Blogs.findAll({})
+  res.json(info);
+  console.log(info);
+})
+
+app.get('/blog/:blogid', async (req, res) => {
+  const blogid = req.params.blogid;
+  const singlepost = await Blogs.findOne({where: {id: blogid}});
+  console.log(req.params);
+  res.json({singlepost});
 })
 
 
