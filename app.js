@@ -27,7 +27,7 @@ app.post('/create', async (req, res) => {
   res.json(post);
 })
 
-app.get('/test', async (req, res) => {
+app.get('/allposts', async (req, res) => {
   const info = await Blogs.findAll({})
   res.json(info);
   console.log(info);
