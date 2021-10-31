@@ -7,6 +7,7 @@ const router = require('./router.js');
 
 
 const app = express();
+const port = process.env.PORT || 3000
 
 app.use(cors());
 
@@ -28,7 +29,10 @@ app.post('/create', async (req, res) => {
 })
 
 app.get('/allposts', async (req, res) => {
-  const info = await Blogs.findAll({})
+  const info = await Blogs.findAll({ 
+    order: [['createdAt', 'DESC']],
+    attributes: ['id', 'title', 'summary', 'content']
+  });
   res.json(info);
   console.log(info);
 })
@@ -58,7 +62,7 @@ app.delete('/blog/:blogid', async (req, res) => {
   res.json({message: 'Delete successful'});
 })
 
-app.listen(8000, err => {
+app.listen(port, err => {
   if(err) console.error(err);
   console.log('Server listening on port 8000');
 })
