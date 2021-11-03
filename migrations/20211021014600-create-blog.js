@@ -20,6 +20,9 @@ module.exports = {
       content: {
         type: Sequelize.TEXT
       },
+      readtime: {
+        type: Sequelize.TEXT
+      },
       date: {
         type: Sequelize.DATE
       },
