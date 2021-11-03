@@ -6,7 +6,7 @@ exports.publishPost = (req, res) => {
     NewBlogPost.save((err, blogPost) => {
         if(err) {
             return res.status(422).json({
-                msg: 'server encountered problem',
+                msg: 'Server Has Encountered a Problem.',
                 error: err
             });
         }

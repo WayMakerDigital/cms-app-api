@@ -39,9 +39,9 @@ app.get('/allposts', async (req, res) => {
 
 app.get('/blog/:blogid', async (req, res) => {
   const blogid = req.params.blogid;
-  const singlepost = await Blogs.findOne({where: {id: blogid}});
+  const singlePost = await Blogs.findOne({where: {id: blogid}});
   console.log(req.params);
-  res.json({singlepost});
+  res.json({singlePost});
 })
 
 app.patch('/blog/:blogid', async (req, res) => {
@@ -53,13 +53,13 @@ app.patch('/blog/:blogid', async (req, res) => {
   }, {
     where: {id: blogid}
   });
-  res.json({message: 'Update successful'});
+  res.json({message: 'Update Successful!'});
 })
 
 app.delete('/blog/:blogid', async (req, res) => {
   const blogid = req.params.blogid;
   await Blogs.destroy({where: {id: blogid}});
-  res.json({message: 'Delete successful'});
+  res.json({message: 'Delete Successful'});
 })
 
 app.listen(port, err => {
