@@ -2,7 +2,7 @@ const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize(
     'sequelize_database_dev',
     'postgres',
-    'Nagito1',
+    'password',
     {
         dialect: 'postgres',
         host: 'localhost',
