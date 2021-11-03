@@ -7,41 +7,40 @@ const router = require('./router.js');
 
 
 const app = express();
-const port = process.env.PORT || 3000
 
 app.use(cors());
 
 sequelize.sync({ force: true });
 
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json({limit: "50mb"}))
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}))
 
 app.post('/create', async (req, res) => {
-  // console.log(req.body);
   const post = await Blogs.create({
     author: req.body.author,
     title: req.body.title,
     summary: req.body.summary,
     content: req.body.content,
+    imageURL: req.body.imageURL,
     date: Date.now(),
   })
+  console.log(post.imageType);
   res.json(post);
 })
 
 app.get('/allposts', async (req, res) => {
   const info = await Blogs.findAll({ 
     order: [['createdAt', 'DESC']],
-    attributes: ['id', 'title', 'summary', 'content']
+    attributes: ['id', 'title', 'summary', 'content', 'imageURL']
   });
   res.json(info);
-  console.log(info);
 })
 
 app.get('/blog/:blogid', async (req, res) => {
   const blogid = req.params.blogid;
-  const singlepost = await Blogs.findOne({where: {id: blogid}});
+  const singlePost = await Blogs.findOne({where: {id: blogid}});
   console.log(req.params);
-  res.json({singlepost});
+  res.json({singlePost});
 })
 
 app.patch('/blog/:blogid', async (req, res) => {
@@ -62,7 +61,7 @@ app.delete('/blog/:blogid', async (req, res) => {
   res.json({message: 'Delete successful'});
 })
 
-app.listen(port, err => {
+app.listen('8000', err => {
   if(err) console.error(err);
   console.log('Server listening on port 8000');
 })

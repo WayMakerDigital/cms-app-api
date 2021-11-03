@@ -28,7 +28,10 @@ Blogs.init({
     date: {
         type: DataTypes.DATE,
         default: Date.now
-    }
+    },
+    imageURL: {
+        type: DataTypes.STRING
+    },
 }, {
     sequelize,
     modelName: 'Blogs'
